@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AYN Ship Date</title>
+<style>
+  :root {
+    --bg: #f6f5f2; --card: #ffffff; --ink: #1d1d1f; --muted: #6e6e73; --line: #e3e1dc;
+    --accent: #3b5bdb; --ok: #2b8a3e; --ok-bg: #ebfbee; --warn: #b26b00; --hl: #edf2ff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #141416; --card: #1e1e21; --ink: #f2f2f2; --muted: #9a9aa0; --line: #2e2e33;
+      --accent: #7c95ff; --ok: #5cc76a; --ok-bg: #16281a; --warn: #f0a33a; --hl: #232a45;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 640px; margin: 0 auto; padding: 32px 16px 48px; }
+  h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin: 0 0 12px; font-size: 14px; }
+  .fresh {
+    display: inline-flex; flex-wrap: wrap; align-items: center; gap: 2px 8px; margin: 0 0 20px; padding: 6px 12px;
+    border: 1px solid var(--line); border-radius: 16px; background: var(--card); font-size: 13px;
+  }
+  .fresh b, .fresh span { white-space: nowrap; }
+  .fresh i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); flex: none; }
+  .fresh.stale i { background: var(--warn); }
+  .fresh span { color: var(--muted); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+  label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  select, input {
+    width: 100%; font: inherit; color: var(--ink); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px;
+  }
+  select:focus, input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .row { display: grid; grid-template-columns: 1fr 160px; gap: 12px; }
+  .row > div { min-width: 0; }
+  @media (max-width: 480px) { .row { grid-template-columns: 1fr; } }
+  .hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .big { font-size: 34px; line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; margin: 2px 0 8px; }
+  .big.ok { color: var(--ok); }
+  .lead { color: var(--muted); font-size: 14px; margin: 0; }
+  .scen { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+  .scen div { border: 1px solid var(--line); border-radius: 10px; padding: 10px; }
+  .scen b { display: block; font-size: 17px; }
+  .scen span { font-size: 12px; color: var(--muted); }
+  .scen .mid { border-color: var(--accent); }
+  .facts { margin: 16px 0 0; padding: 0; list-style: none; font-size: 14px; }
+  .facts li { padding: 4px 0; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; }
+  .facts li span:first-child { white-space: nowrap; }
+  .facts li span:last-child { font-variant-numeric: tabular-nums; text-align: right; }
+  .warn { margin-top: 14px; font-size: 14px; color: var(--warn); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th { text-align: left; font-weight: 500; color: var(--muted); font-size: 12px; padding: 0 0 6px; }
+  td { padding: 6px 0; border-top: 1px solid var(--line); }
+  td:last-child, th:last-child { text-align: right; }
+  tr.you td { background: var(--hl); font-weight: 600; }
+  tr.you td:first-child { padding-left: 8px; border-radius: 8px 0 0 8px; }
+  tr.you td:last-child { padding-right: 8px; border-radius: 0 8px 8px 0; }
+  h2 { font-size: 15px; margin: 0 0 10px; }
+  .scroll { max-height: 440px; overflow-y: auto; }
+  .note { background: transparent; border-style: dashed; }
+  .note h2 { display: flex; align-items: center; gap: 8px; }
+  .note p { margin: 0 0 10px; font-size: 14px; color: var(--muted); }
+  .note .src { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--line); font-size: 12px; }
+  .note a { color: inherit; }
+  .shipped { background: var(--ok-bg); border-color: var(--ok); }
+  .shipped .big { color: var(--ok); font-size: 28px; }
+  .shipped .lead { color: var(--ink); margin-bottom: 8px; }
+  .empty { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>When will my AYN ship?</h1>
+  <p class="sub">An estimate based on the history of the AYN shipment dashboard: when the queue for your model is likely to reach your order number.</p>
+
+  <div class="fresh" id="fresh" hidden><i></i><b id="freshDate"></b><span id="freshBatch"></span></div>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <label for="model">Model</label>
+        <select id="model"></select>
+        <div class="hint" id="modelHint"></div>
+      </div>
+      <div>
+        <label for="order">Order number</label>
+        <input id="order" inputmode="numeric" placeholder="2950XX" autocomplete="off">
+        <div class="hint">2950XX, 2950 or 295042 all work</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card note">
+    <h2>ⓘ This is an estimate, not an official date</h2>
+    <p>The information on this site is neither official nor exact. It is a modeled forecast based on the ship dates of previous orders, and the real date may turn out earlier or later.</p>
+    <p>The model does not account for factors such as changes in AYN’s supply chain and production, holidays, force majeure and so on.</p>
+    <p>The data on this site is updated every 24–48 hours.</p>
+    <p class="src" id="src"></p>
+  </div>
+
+  <div class="card" id="result"><p class="empty">Loading data…</p></div>
+
+  <div class="card" id="historyCard" hidden>
+    <h2 id="historyTitle"></h2>
+    <div class="scroll"><table id="history"></table></div>
+  </div>
+
+</main>
+
+<script>
+const DAY = 864e5;
+const fmt = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+const fmtY = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+const xx = n => Math.floor(n) + 'xx';
+const days = (a, b) => (b - a) / DAY;
+const addDays = (d, n) => new Date(d.getTime() + n * DAY);
+const today = (() => { const t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate()); })();
+const WINDOW = 180; // days of history that count as "the current pace"
+
+let models = {};       // name -> [{date, from, to}] by date
+let globalRate = 7;    // xx/day fallback for models with too little history
+
+function store(k, v) {
+  try { if (v !== undefined) localStorage.setItem(k, v); return localStorage.getItem(k); } catch { return null; }
+}
+
+function toDate(s) { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); }
+
+function build(data) {
+  for (const b of data.batches)
+    for (const it of b.items) (models[it.model] ||= []).push({ date: toDate(b.date), from: it.from, to: it.to });
+  const rates = Object.values(models).map(b => stats(b)).filter(s => s.series.length >= 5)
+    .map(s => (s.frontier - s.series[0].f) / Math.max(1, days(s.series[0].date, s.last.date))).sort((a, b) => a - b);
+  if (rates.length) globalRate = rates[Math.floor(rates.length / 2)];
+}
+
+// Shipped frontier (highest order number sent so far) after each batch, plus batch cadence.
+function stats(b) {
+  let f = 0;
+  const series = b.map(x => ({ date: x.date, f: (f = Math.max(f, x.to)) }));
+  const last = b.at(-1);
+  const recent = b.filter(x => days(x.date, last.date) <= 90);
+  const interval = recent.length > 1 ? days(recent[0].date, last.date) / (recent.length - 1) : null;
+  return { series, first: b[0], last, frontier: f, interval, minFrom: Math.min(...b.map(x => x.from)) };
+}
+
+// How long did this model's queue historically take to advance by `gap`?
+// Each past batch is a starting point; the sample is the days until the frontier was gap further.
+function durations(series, gap, since) {
+  const out = [];
+  series.forEach((p, i) => {
+    if (since && p.date < since) return;
+    const j = series.findIndex((q, k) => k > i && q.f >= p.f + gap);
+    if (j > 0) out.push(days(p.date, series[j].date));
+  });
+  return out.sort((a, b) => a - b);
+}
+
+function quantile(arr, p) {
+  const i = (arr.length - 1) * p, lo = Math.floor(i), hi = Math.ceil(i);
+  return arr[lo] + (arr[hi] - arr[lo]) * (i - lo);
+}
+
+function parseOrder(s) {
+  const digits = (s || '').replace(/[^0-9]/g, '');
+  if (!digits) return null;
+  // "2950XX" / "2950" = the middle of that block of 100 orders
+  if (/x/i.test(s) || digits.length <= 4) return { n: Number(digits) + 0.5, label: digits + 'xx' };
+  return { n: Number(digits) / 100, label: digits };
+}
+
+function plural(n, one, many) { return n === 1 ? one : many; }
+
+function render() {
+  const name = document.getElementById('model').value;
+  const raw = document.getElementById('order').value;
+  const order = parseOrder(raw);
+  store('model', name);
+  store('order', raw);
+  document.getElementById('modelHint').textContent =
+    /Thor .* Max$/.test(name) ? 'Max without “(512)” = 16 GB + 1 TB' : /\(512\)/.test(name) ? '512 GB version' : '';
+
+  const b = models[name];
+  const s = stats(b);
+  renderHistory(name, b, order, s);
+  const res = document.getElementById('result');
+
+  if (!order) {
+    res.classList.remove('shipped');
+    res.innerHTML = `<p class="lead">${name} orders have shipped up to <b>${xx(s.frontier)}</b> (batch of ${fmt(s.last.date)}). Enter your order number.</p>`;
+    return;
+  }
+
+  const hits = b.filter(x => order.n >= x.from && order.n < x.to + 1);
+  if (hits.length) {
+    const dates = [...new Set(hits.map(h => fmt(h.date)))];
+    const where = dates.length > 1
+      ? `falls within the ranges of several batches (${dates.join('; ')}), so it most likely shipped on <b>${dates[0]}</b>`
+      : `is in the batch of <b>${dates[0]}</b>`;
+    shipped(res, `${order.label} ${where}.`);
+    return;
+  }
+  if (order.n < s.minFrom) {
+    shipped(res, `This number is below the earliest ${name} range in the saved history (${xx(s.minFrom)} on ${fmt(s.first.date)}), so it most likely shipped before that.`);
+    return;
+  }
+  if (order.n <= s.frontier + 1) {
+    shipped(res, `This number falls between the listed ranges, but the ${name} queue has already passed ${xx(s.frontier)}.`);
+    return;
+  }
+
+  res.classList.remove('shipped');
+  const gap = order.n - s.frontier;
+  const since = addDays(s.last.date, -WINDOW);
+  let samples = durations(s.series, gap, since), scope = `in the last ${Math.round(WINDOW / 30)} months`;
+  if (samples.length < 4) { samples = durations(s.series, gap); scope = 'in the full history'; }
+
+  let dFast, dMid, dSlow, how;
+  if (samples.length >= 3) {
+    dFast = quantile(samples, 0.2); dMid = quantile(samples, 0.5); dSlow = quantile(samples, 0.85);
+    how = `${samples.length} past ${plural(samples.length, 'case', 'cases')} ${scope} where the queue moved ${Math.round(gap)} xx`;
+  } else {
+    const r = globalRate;
+    dFast = gap / (r * 1.3); dMid = gap / r; dSlow = gap / (r * 0.6);
+    how = `little history, so the typical Thor pace is used (${r.toFixed(1)} xx/day)`;
+  }
+  const interval = s.interval || 9;
+  const idle = days(s.last.date, today);
+  // after a long pause the queue hasn't moved, so count from today instead of the last batch
+  const stalled = idle > 2.5 * interval;
+  const origin = stalled ? today : s.last.date;
+  const at = n => { const d = addDays(origin, n); return d < today ? today : d; };
+  const [eFast, eMid, eSlow] = [at(dFast), at(dMid), at(dSlow)];
+
+  const warns = [];
+  if (stalled) warns.push(`No new ${name} batches for ${Math.round(idle)} days (usually every ~${Math.round(interval)} days). This looks like a pause, so the estimate counts from today. Low confidence.`);
+  if (samples.length < 3) warns.push('There is too little history for this model, so this is a rough estimate.');
+  if (!stalled && eMid <= addDays(today, 3)) warns.push('Based on past timing, your number is already due and will likely be in the next batch.');
+
+  res.innerHTML = `
+    <label>Estimated ship date</label>
+    <div class="big">${eMid <= today ? 'Next batch' : '≈ ' + fmt(eMid)}</div>
+    <p class="lead">${name}, order ${order.label}. Most likely between ${fmt(eFast)} and ${fmt(eSlow)}.</p>
+    <div class="scen">
+      <div><span>Fast</span><b>${fmt(eFast)}</b><span>+${Math.round(dFast)} days from ${stalled ? "today" : "last batch"}</span></div>
+      <div class="mid"><span>Likely</span><b>${fmt(eMid)}</b><span>+${Math.round(dMid)} days</span></div>
+      <div><span>Slow</span><b>${fmt(eSlow)}</b><span>+${Math.round(dSlow)} days</span></div>
+    </div>
+    <ul class="facts">
+      <li><span>Queue now at</span><span>${xx(s.frontier)} · ${fmt(s.last.date)}</span></li>
+      <li><span>Ahead of you</span><span>≈ ${Math.round(gap)} xx</span></li>
+      <li><span>Batch cadence</span><span>every ~${Math.round(interval)} days</span></li>
+      <li><span>Last batch</span><span>${Math.round(idle)} ${plural(Math.round(idle), 'day', 'days')} ago</span></li>
+      <li><span>Based on</span><span>${how}</span></li>
+    </ul>
+    ${warns.map(w => `<p class="warn">${w}</p>`).join('')}`;
+}
+
+function shipped(res, detail) {
+  res.classList.add('shipped');
+  res.innerHTML = `<label>Status</label><div class="big">Your console has shipped! 🎉</div>
+    <p class="lead">Check your email inbox for the shipping notice. From here on, the delivery date depends on the shipping carrier.</p>
+    <p class="lead" style="color:var(--muted)">${detail} No email? Check spam, or contact AYN support: info@ayn.hk.</p>`;
+}
+
+function renderHistory(name, b, order, s) {
+  document.getElementById('historyCard').hidden = false;
+  document.getElementById('historyTitle').textContent = `Shipment history: ${name} (${b.length} batches)`;
+  const rows = b.map(x => ({ d: fmtY(x.date), r: `${x.from}xx – ${x.to}xx`, n: x.to - x.from, you: order && order.n >= x.from && order.n < x.to + 1 }));
+  if (order && !rows.some(r => r.you) && order.n > s.frontier) rows.push({ d: 'pending', r: `yours: ${order.label}`, n: '', you: true });
+  rows.reverse(); // newest first
+  document.getElementById('history').innerHTML =
+    '<tr><th>Date</th><th>Range</th><th>Orders (xx)</th></tr>' +
+    rows.map(r => `<tr class="${r.you ? 'you' : ''}"><td>${r.d}</td><td>${r.r}</td><td>${r.n}</td></tr>`).join('');
+}
+
+fetch('data.json', { cache: 'no-store' }).then(r => r.json()).then(data => {
+  build(data);
+  const sel = document.getElementById('model');
+  for (const fam of ['Thor', 'Odin3']) {
+    const g = document.createElement('optgroup');
+    g.label = fam === 'Odin3' ? 'Odin 3' : 'Thor';
+    Object.keys(models).filter(n => n.startsWith(fam + ' ')).sort()
+      .forEach(n => g.append(new Option(n.replace(/^Odin3/, 'Odin 3'), n)));
+    sel.append(g);
+  }
+  // ?model=Thor%20Rainbow%20Max&order=2950XX pre-fills the form (shareable links); otherwise the last visit
+  const q = new URLSearchParams(location.search);
+  const savedModel = q.get('model') || store('model'); if (savedModel && models[savedModel]) sel.value = savedModel;
+  const savedOrder = q.get('order') || store('order'); if (savedOrder) document.getElementById('order').value = savedOrder;
+  sel.addEventListener('change', render);
+  document.getElementById('order').addEventListener('input', render);
+  const b = data.batches, c = data.checked_at.replace(/-/g, '');
+  const updated = toDate(`${c.slice(0, 4)}-${c.slice(4, 6)}-${c.slice(6, 8)}`);
+  const fresh = document.getElementById('fresh');
+  fresh.hidden = false;
+  fresh.classList.toggle('stale', days(updated, today) > 2);
+  document.getElementById('freshDate').textContent = `Data updated ${fmtY(updated)}`;
+  document.getElementById('freshBatch').textContent = `· latest AYN batch ${fmt(toDate(b.at(-1).date))}`;
+  document.getElementById('src').innerHTML =
+    `Source: <a href="${data.source}" target="_blank" rel="noopener">AYN shipment dashboard</a> and its archived copies, ` +
+    `batches from ${fmtY(toDate(b[0].date))} to ${fmtY(toDate(b.at(-1).date))}. ` +
+    'Dates are when an order leaves the warehouse and do not include delivery.';
+  render();
+}).catch(e => {
+  document.getElementById('result').innerHTML = `<p class="warn">Could not load data.json (${e.message}). Open the page through run.sh or a web server, not as a local file.</p>`;
+});
+</script>
+</body>
+</html>
