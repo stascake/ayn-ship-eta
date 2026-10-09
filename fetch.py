@@ -56,14 +56,23 @@ def direct():
 
 
 def wayback():
-    try:  # the archive's servers aren't blocked; this takes ~1 minute and may fail when it's busy
-        get("https://web.archive.org/save/" + PAGE, timeout=180)
+    # the archive's servers aren't blocked; the save response is the fresh copy itself (~1 min)
+    try:
+        page = get("https://web.archive.org/save/" + PAGE, timeout=240)
+        if parse(page):
+            return page, datetime.datetime.now(datetime.timezone.utc)
+        print("wayback save: page has no batches", file=sys.stderr)
     except Exception as e:
         print(f"wayback save: {e}", file=sys.stderr)
+    # otherwise take the newest existing snapshot (maybe someone else's from today)
     rows = json.loads(get("https://web.archive.org/cdx/search/cdx?url=ayntec.com/pages/shipment-dashboard"
                           "&output=json&fl=timestamp,original&filter=statuscode:200&limit=-5", timeout=120))[1:]
     for ts, original in reversed(rows):  # newest first
-        page = get(f"https://web.archive.org/web/{ts}id_/{original}", timeout=120)
+        try:
+            page = get(f"https://web.archive.org/web/{ts}id_/{original}", timeout=120)
+        except Exception as e:
+            print(f"wayback {ts}: {e}", file=sys.stderr)
+            continue
         if parse(page):
             when = datetime.datetime.strptime(ts, "%Y%m%d%H%M%S").replace(tzinfo=datetime.timezone.utc)
             return page, when
