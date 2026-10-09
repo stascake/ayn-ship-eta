@@ -55,6 +55,10 @@
   .facts li span:first-child { white-space: nowrap; }
   .facts li span:last-child { font-variant-numeric: tabular-nums; text-align: right; }
   .warn { margin-top: 14px; font-size: 14px; color: var(--warn); }
+  .callout {
+    margin: 12px 0 0; padding: 10px 12px; border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0;
+    background: var(--hl); font-size: 14px;
+  }
   table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
   th { text-align: left; font-weight: 500; color: var(--muted); font-size: 12px; padding: 0 0 6px; }
   td { padding: 6px 0; border-top: 1px solid var(--line); }
@@ -245,9 +249,10 @@ function render() {
   if (!stalled && eMid <= addDays(today, 3)) warns.push('Based on past timing, your number is already due and will likely be in the next batch.');
 
   res.innerHTML = `
-    <label>Estimated ship date</label>
+    <label>Estimated date AYN ships your console</label>
     <div class="big">${eMid <= today ? 'Next batch' : '≈ ' + fmt(eMid)}</div>
     <p class="lead">${name}, order ${order.label}. Most likely between ${fmt(eFast)} and ${fmt(eSlow)}.</p>
+    <p class="callout">📦 <b>This is not a delivery date.</b> It is when AYN is expected to hand your console to the carrier. From the moment AYN ships it, all further timing depends on the courier service. Don’t forget to check your email: that’s where the shipping notice and tracking number arrive.</p>
     <div class="scen">
       <div><span>Fast</span><b>${fmt(eFast)}</b><span>+${Math.round(dFast)} days from ${stalled ? "today" : "last batch"}</span></div>
       <div class="mid"><span>Likely</span><b>${fmt(eMid)}</b><span>+${Math.round(dMid)} days</span></div>

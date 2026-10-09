@@ -32,7 +32,7 @@ def parse(page):
     page = re.sub(r"<script.*?</script>|<style.*?</style>", "", page, flags=re.S)
     text = html.unescape(re.sub(r"<[^>]+>", "\n", page))
     rows, date = [], None
-    for line in (l.strip() for l in text.splitlines()):
+    for line in (l.strip().strip("*#_ ") for l in text.splitlines()):  # also reader-proxy markdown
         if not line:
             continue
         if line.startswith("Get updates") and rows:
