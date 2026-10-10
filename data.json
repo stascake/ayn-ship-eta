@@ -1,6 +1,6 @@
 {
  "source": "https://www.ayntec.com/pages/shipment-dashboard",
- "checked_at": "2026-10-09T20:07Z",
+ "checked_at": "2026-10-10T09:46Z",
  "snapshots": [
   "20251103",
   "20251124",
@@ -57,7 +57,8 @@
   "20260901",
   "20260909",
   "20261001",
-  "20261009"
+  "20261009",
+  "20261010"
  ],
  "batches": [
   {
@@ -3602,6 +3603,26 @@
      "model": "Thor Clear Purple Max (512)",
      "from": 2814,
      "to": 2876
+    }
+   ]
+  },
+  {
+   "date": "2026-10-09",
+   "items": [
+    {
+     "model": "Thor Black Max (512)",
+     "from": 2754,
+     "to": 2941
+    },
+    {
+     "model": "Thor Rainbow Max (512)",
+     "from": 2881,
+     "to": 2974
+    },
+    {
+     "model": "Thor White Max (512)",
+     "from": 2730,
+     "to": 2941
     }
    ]
   }
