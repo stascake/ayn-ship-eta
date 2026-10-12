@@ -1,6 +1,6 @@
 {
  "source": "https://www.ayntec.com/pages/shipment-dashboard",
- "checked_at": "2026-10-11T19:32Z",
+ "checked_at": "2026-10-12T10:43Z",
  "snapshots": [
   "20251103",
   "20251124",
@@ -58,7 +58,8 @@
   "20260909",
   "20261001",
   "20261009",
-  "20261010"
+  "20261010",
+  "20261012"
  ],
  "batches": [
   {
@@ -3623,6 +3624,31 @@
      "model": "Thor White Max (512)",
      "from": 2730,
      "to": 2941
+    }
+   ]
+  },
+  {
+   "date": "2026-10-10",
+   "items": [
+    {
+     "model": "Odin3 Rainbow Max",
+     "from": 2543,
+     "to": 2854
+    },
+    {
+     "model": "Thor Rainbow Max",
+     "from": 2887,
+     "to": 2944
+    },
+    {
+     "model": "Thor White Max",
+     "from": 2652,
+     "to": 2891
+    },
+    {
+     "model": "Thor White Pro",
+     "from": 2730,
+     "to": 2856
     }
    ]
   }
