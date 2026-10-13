@@ -1,6 +1,6 @@
 {
  "source": "https://www.ayntec.com/pages/shipment-dashboard",
- "checked_at": "2026-10-12T22:29Z",
+ "checked_at": "2026-10-13T10:30Z",
  "snapshots": [
   "20251103",
   "20251124",
@@ -59,7 +59,8 @@
   "20261001",
   "20261009",
   "20261010",
-  "20261012"
+  "20261012",
+  "20261013"
  ],
  "batches": [
   {
@@ -3649,6 +3650,31 @@
      "model": "Thor White Pro",
      "from": 2730,
      "to": 2856
+    }
+   ]
+  },
+  {
+   "date": "2026-10-12",
+   "items": [
+    {
+     "model": "Odin3 Black Max",
+     "from": 2754,
+     "to": 3080
+    },
+    {
+     "model": "Odin3 White Max",
+     "from": 2510,
+     "to": 2912
+    },
+    {
+     "model": "Thor Clear Purple Pro",
+     "from": 2790,
+     "to": 2832
+    },
+    {
+     "model": "Thor Rainbow Pro",
+     "from": 2889,
+     "to": 2939
     }
    ]
   }
