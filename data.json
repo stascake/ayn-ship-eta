@@ -1,6 +1,6 @@
 {
  "source": "https://www.ayntec.com/pages/shipment-dashboard",
- "checked_at": "2026-10-23T08:29Z",
+ "checked_at": "2026-10-23T19:10Z",
  "snapshots": [
   "20251103",
   "20251124",
@@ -61,7 +61,8 @@
   "20261010",
   "20261012",
   "20261013",
-  "20261016"
+  "20261016",
+  "20261023"
  ],
  "batches": [
   {
@@ -3741,6 +3742,96 @@
      "model": "Thor Rainbow Max",
      "from": 2944,
      "to": 2985
+    }
+   ]
+  },
+  {
+   "date": "2026-10-19",
+   "items": [
+    {
+     "model": "Thor Black Max",
+     "from": 2894,
+     "to": 2930
+    },
+    {
+     "model": "Thor Clear Purple Max (512)",
+     "from": 2876,
+     "to": 2940
+    },
+    {
+     "model": "Thor Clear Purple Pro",
+     "from": 2790,
+     "to": 2884
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "items": [
+    {
+     "model": "Odin3 White Max",
+     "from": 2912,
+     "to": 3171
+    },
+    {
+     "model": "Thor Black Max",
+     "from": 2930,
+     "to": 2952
+    },
+    {
+     "model": "Thor Rainbow Max",
+     "from": 2985,
+     "to": 3022
+    }
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "items": [
+    {
+     "model": "Thor Black Base",
+     "from": 3003,
+     "to": 3169
+    },
+    {
+     "model": "Thor Black Max",
+     "from": 2952,
+     "to": 2981
+    },
+    {
+     "model": "Thor Black Pro",
+     "from": 3044,
+     "to": 3091
+    },
+    {
+     "model": "Thor Rainbow Max (512)",
+     "from": 2974,
+     "to": 2989
+    },
+    {
+     "model": "Thor Rainbow Pro",
+     "from": 2939,
+     "to": 2954
+    }
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "items": [
+    {
+     "model": "Thor Clear Purple Max",
+     "from": 2924,
+     "to": 2975
+    },
+    {
+     "model": "Thor Rainbow Pro",
+     "from": 2954,
+     "to": 3013
+    },
+    {
+     "model": "Thor White Pro",
+     "from": 2856,
+     "to": 3067
     }
    ]
   }
