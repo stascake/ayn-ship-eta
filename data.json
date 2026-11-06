@@ -1,6 +1,6 @@
 {
  "source": "https://www.ayntec.com/pages/shipment-dashboard",
- "checked_at": "2026-11-06T10:47Z",
+ "checked_at": "2026-11-06T20:51Z",
  "snapshots": [
   "20251103",
   "20251124",
@@ -63,7 +63,8 @@
   "20261013",
   "20261016",
   "20261023",
-  "20261027"
+  "20261027",
+  "20261106"
  ],
  "batches": [
   {
@@ -3868,6 +3869,166 @@
      "model": "Thor Rainbow Pro",
      "from": 3087,
      "to": 3173
+    }
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "items": [
+    {
+     "model": "Thor Black Base",
+     "from": 3169,
+     "to": 3278
+    },
+    {
+     "model": "Thor Black Lite",
+     "from": 2977,
+     "to": 3007
+    },
+    {
+     "model": "Thor Black Max",
+     "from": 3049,
+     "to": 3078
+    },
+    {
+     "model": "Thor Black Max (512)",
+     "from": 2941,
+     "to": 2999
+    },
+    {
+     "model": "Thor Rainbow Max",
+     "from": 3022,
+     "to": 3063
+    }
+   ]
+  },
+  {
+   "date": "2026-10-28",
+   "items": [
+    {
+     "model": "Thor Rainbow Max (512)",
+     "from": 2989,
+     "to": 3067
+    }
+   ]
+  },
+  {
+   "date": "2026-10-29",
+   "items": [
+    {
+     "model": "Thor Black Max (512)",
+     "from": 2999,
+     "to": 3066
+    }
+   ]
+  },
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "model": "Thor Clear Purple Max (512)",
+     "from": 2940,
+     "to": 3023
+    },
+    {
+     "model": "Thor Rainbow Max (512)",
+     "from": 3067,
+     "to": 3084
+    },
+    {
+     "model": "Thor White Max (512)",
+     "from": 2941,
+     "to": 2994
+    }
+   ]
+  },
+  {
+   "date": "2026-10-31",
+   "items": [
+    {
+     "model": "Thor Black Lite",
+     "from": 3007,
+     "to": 3297
+    },
+    {
+     "model": "Thor Black Max (512)",
+     "from": 2999,
+     "to": 3081
+    },
+    {
+     "model": "Thor Black Pro",
+     "from": 3167,
+     "to": 3297
+    },
+    {
+     "model": "Thor Rainbow Max (512)",
+     "from": 3084,
+     "to": 3115
+    }
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "model": "Thor Black Base",
+     "from": 3278,
+     "to": 3307
+    },
+    {
+     "model": "Thor Black Pro",
+     "from": 3297,
+     "to": 3306
+    },
+    {
+     "model": "Thor Clear Purple Pro",
+     "from": 3041,
+     "to": 3147
+    },
+    {
+     "model": "Thor White Pro",
+     "from": 2856,
+     "to": 3163
+    }
+   ]
+  },
+  {
+   "date": "2026-11-03",
+   "items": [
+    {
+     "model": "Thor Clear Purple Pro",
+     "from": 3147,
+     "to": 3198
+    }
+   ]
+  },
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "model": "Thor Clear Purple Pro",
+     "from": 3147,
+     "to": 3198
+    }
+   ]
+  },
+  {
+   "date": "2026-11-05",
+   "items": [
+    {
+     "model": "Thor Black Base",
+     "from": 3307,
+     "to": 3316
+    },
+    {
+     "model": "Thor Rainbow Max (512)",
+     "from": 3115,
+     "to": 3128
+    },
+    {
+     "model": "Thor White Max (512)",
+     "from": 2994,
+     "to": 3016
     }
    ]
   }
