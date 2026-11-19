@@ -1,6 +1,6 @@
 {
  "source": "https://www.ayntec.com/pages/shipment-dashboard",
- "checked_at": "2026-11-18T22:34Z",
+ "checked_at": "2026-11-19T11:33Z",
  "snapshots": [
   "20251103",
   "20251124",
@@ -66,7 +66,8 @@
   "20261027",
   "20261106",
   "20261110",
-  "20261116"
+  "20261116",
+  "20261119"
  ],
  "batches": [
   {
@@ -4146,6 +4147,36 @@
      "model": "Thor White Max",
      "from": 2891,
      "to": 3332
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "items": [
+    {
+     "model": "Odin3 Portal Max Cold Grey",
+     "from": 3210,
+     "to": 3220
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "items": [
+    {
+     "model": "Odin3 Portal Max Cold Grey",
+     "from": 3220,
+     "to": 3235
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "model": "Odin3 Portal Max Cold Grey",
+     "from": 3235,
+     "to": 3270
     }
    ]
   }
