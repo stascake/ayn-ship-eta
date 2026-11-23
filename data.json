@@ -1,6 +1,6 @@
 {
  "source": "https://www.ayntec.com/pages/shipment-dashboard",
- "checked_at": "2026-11-22T21:01Z",
+ "checked_at": "2026-11-23T12:26Z",
  "snapshots": [
   "20251103",
   "20251124",
@@ -67,7 +67,8 @@
   "20261106",
   "20261110",
   "20261116",
-  "20261119"
+  "20261119",
+  "20261123"
  ],
  "batches": [
   {
@@ -4177,6 +4178,71 @@
      "model": "Odin3 Portal Max Cold Grey",
      "from": 3235,
      "to": 3270
+    }
+   ]
+  },
+  {
+   "date": "2026-11-19",
+   "items": [
+    {
+     "model": "Odin3 Portal Max Cold Grey",
+     "from": 3270,
+     "to": 3371
+    }
+   ]
+  },
+  {
+   "date": "2026-11-20",
+   "items": [
+    {
+     "model": "Odin3 Portal Max Cold Grey",
+     "from": 3270,
+     "to": 3371
+    },
+    {
+     "model": "Odin3 Portal Max White",
+     "from": 3210,
+     "to": 3252
+    },
+    {
+     "model": "Thor Rainbow Max",
+     "from": 3096,
+     "to": 3136
+    },
+    {
+     "model": "Thor White Max (512)",
+     "from": 3165,
+     "to": 3190
+    }
+   ]
+  },
+  {
+   "date": "2026-11-21",
+   "items": [
+    {
+     "model": "Odin3 Portal Max 512 Cold Grey",
+     "from": 3210,
+     "to": 3244
+    },
+    {
+     "model": "Thor Black Max",
+     "from": 3103,
+     "to": 3195
+    },
+    {
+     "model": "Thor Black Pro",
+     "from": 3306,
+     "to": 3352
+    },
+    {
+     "model": "Thor Rainbow Max",
+     "from": 3136,
+     "to": 3168
+    },
+    {
+     "model": "Thor White Max (512)",
+     "from": 3165,
+     "to": 3190
     }
    ]
   }
